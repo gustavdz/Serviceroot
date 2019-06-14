@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+/*
+ 68XMw5cs5EhEWHTjSLSYCIhESNyoCDSwzXQG3lAR93k2xxk5zsdlkSGrtinv
+*/
+Route::get('/home/tokeninit', 'ApiTokenController@update')->name('tokeninit');

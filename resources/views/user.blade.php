@@ -16,12 +16,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            You are logged in!
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            You are logged in!
+                            <h4>Bienvenido {{ $user->name }} ({{$user->username}}) </h4>
                         </div>
                     </div>
                 </div>
