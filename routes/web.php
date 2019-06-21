@@ -21,4 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 /*
  68XMw5cs5EhEWHTjSLSYCIhESNyoCDSwzXQG3lAR93k2xxk5zsdlkSGrtinv
 */
-Route::get('/home/tokeninit', 'ApiTokenController@update')->name('tokeninit');
+Route::middleware('auth')->get('/home/tokeninit', 'ApiTokenController@update')->name('tokeninit');
+Route::middleware('auth')->get('/categories', 'CategoryController@index')->name('categories');

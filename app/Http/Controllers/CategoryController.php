@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -12,9 +14,24 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        //$user = User::find(Auth::user()->id);
+
+        if($request->search){
+            $search=$request->search;
+        }else{
+            $search="";
+        }
+
+        $categories = Category::where('state', '=','A')
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', '%'.$search.'%');
+                    //->orWhere('last_name', 'LIKE', '%'.$search.'%');
+            })
+            ->paginate(10);
+        return view('categories.index')->with(compact('categories'));
     }
 
     /**
