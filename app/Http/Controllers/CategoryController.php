@@ -30,8 +30,30 @@ class CategoryController extends Controller
                 $query->where('name', 'LIKE', '%'.$search.'%');
                     //->orWhere('last_name', 'LIKE', '%'.$search.'%');
             })
-            ->paginate(10);
+            ->paginate(4);
         return view('categories.index')->with(compact('categories'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_category_services(Request $request,$category_id)
+    {
+        if($request->search){
+            $search=$request->search;
+        }else{
+            $search="";
+        }
+        $category = Category::find($category_id);
+        $services = Category::find($category_id)->services()
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', '%'.$search.'%');
+            })
+            ->paginate(4);
+        return view('categories.index_services')->with(compact('services','category'));
+
     }
 
     /**
@@ -41,7 +63,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -52,7 +74,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category_request = $request->only('name');
+        //$user = User::find(Auth::user()->id);
+        //$category_request['user_id']=$user->id;
+        $category = Category::create($category_request);
+
+        return redirect()->route('categories');
     }
 
     /**

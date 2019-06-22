@@ -8,13 +8,17 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-2">
-                            <a href="{{route('home')}}" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Volver</a>
+                            <a href="{{route('categories')}}" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Volver</a>
                         </div>
-                        <div class="col-md-10 text-right">
-                            Categorías <a href="{{route('create_category')}}" class="btn btn-primary" data-toggle="tooltip" title="Crear una Categoría"><i class="fas fa-plus"></i></a>
+                        <div class="col-md-5 text-center">
+                            {{$category->name}}
+                        </div>
+                        <div class="col-md-5 text-right">
+                            <a href="{{url('categories/'.$category->id.'/services/create')}}" class="btn btn-primary" data-toggle="tooltip" title="Crear un Servicio"><i class="fas fa-plus"></i></a>
                         </div>
                     </div>
                 </div>
+
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead>
@@ -25,21 +29,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($categories as $index => $category)
+                        @foreach($services as $index => $service)
                             <tr>
-                                <th scope="row">{{$category->id}}</th>
-                                <td>{{$category->id}} - {{ $category->name }}</td>
+                                <th scope="row">{{$service->id}}</th>
+                                <td>{{ $service->name }}</td>
                                 <td>
-                                    <a href="{{url('categories/'.$category->id.'/services')}}" class="btn btn-primary" data-toggle="tooltip" title="Crear un Servicio">
-                                        <i class="fas fa-sitemap"></i>
-                                    </a>
+                                    &nbsp;
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                         <tfoot>
                         <tr>
-                            <td colspan="3">{{$categories->links()}}</td>
+                            <td colspan="3">{{$services->links()}}</td>
                         </tr>
                         </tfoot>
                     </table>
