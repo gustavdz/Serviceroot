@@ -31,10 +31,18 @@
                         <tbody>
                         @foreach($services as $index => $service)
                             <tr>
-                                <th scope="row">{{$service->id}}</th>
+                                <th scope="row">{{$index+1}}</th>
                                 <td>{{ $service->name }}</td>
                                 <td>
-                                    &nbsp;
+                                    <form method="post" action="{{url('categories/'.$category->id.'/services/'.$service->id.'/delete')}}" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <a href="{{url('categories/'.$category->id.'/services/'.$service->id.'/edit')}}" class="btn btn-success" data-toggle="tooltip" title="Editar Servicio">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <button type="submit" class="btn btn-danger" data-toggle="tooltip" title="Eliminar Servicio">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

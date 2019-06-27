@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\ServiceOwnershipRequest;
 use App\Service;
 use Illuminate\Http\Request;
 
@@ -84,9 +85,11 @@ class ServiceController extends Controller
      * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function edit(Service $service)
+    public function edit($category_id,$service_id)
     {
-        //
+        $category = Category::find($category_id);
+        $service = Service::find($service_id);
+        return view('services.edit')->with(compact('service','category'));
     }
 
     /**
@@ -96,9 +99,12 @@ class ServiceController extends Controller
      * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(ServiceOwnershipRequest $request, $category_id, $service_id)
     {
-        //
+        $service = Service::find($service_id);
+        $service -> fill($request->all())->save();
+
+        return redirect()->route('category_services',$category_id);
     }
 
     /**
@@ -107,8 +113,10 @@ class ServiceController extends Controller
      * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function destroy(ServiceOwnershipRequest $request, $service_id)
     {
-        //
+        $service = Service::find($request->service_id);
+        $service->delete();
+        return back();
     }
 }

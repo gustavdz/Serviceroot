@@ -27,12 +27,21 @@
                         <tbody>
                         @foreach($categories as $index => $category)
                             <tr>
-                                <th scope="row">{{$category->id}}</th>
-                                <td>{{$category->id}} - {{ $category->name }}</td>
+                                <th scope="row">{{$index+1}}</th>
+                                <td>{{ $category->name }}</td>
                                 <td>
-                                    <a href="{{url('categories/'.$category->id.'/services')}}" class="btn btn-primary" data-toggle="tooltip" title="Crear un Servicio">
-                                        <i class="fas fa-sitemap"></i>
-                                    </a>
+                                    <form method="post" action="{{url('categories/'.$category->id.'/delete')}}" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <a href="{{url('categories/'.$category->id.'/services')}}" class="btn btn-primary" data-toggle="tooltip" title="Crear un Servicio">
+                                            <i class="fas fa-sitemap"></i>
+                                        </a>
+                                        <a href="{{url('categories/'.$category->id.'/edit')}}" class="btn btn-success" data-toggle="tooltip" title="Editar Categoría">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <button type="submit" class="btn btn-danger" data-toggle="tooltip" title="Eliminar Categoría">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

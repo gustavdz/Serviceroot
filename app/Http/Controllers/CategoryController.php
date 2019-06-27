@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\CategoryOwnershipRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class CategoryController extends Controller
                 $query->where('name', 'LIKE', '%'.$search.'%');
                     //->orWhere('last_name', 'LIKE', '%'.$search.'%');
             })
-            ->paginate(4);
+            ->paginate(5);
         return view('categories.index')->with(compact('categories'));
     }
 
@@ -51,7 +52,7 @@ class CategoryController extends Controller
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', '%'.$search.'%');
             })
-            ->paginate(4);
+            ->paginate(5);
         return view('categories.index_services')->with(compact('services','category'));
 
     }
@@ -83,25 +84,15 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($category_id)
     {
-        //
+        $category = Category::find($category_id);
+        return view('categories.edit')->with(compact('category'));
     }
 
     /**
@@ -111,9 +102,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $category_id)
     {
-        //
+        $category = Category::find($category_id);
+        $category -> fill($request->all())->save();
+
+        return redirect()->route('categories');
     }
 
     /**
@@ -122,8 +116,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(CategoryOwnershipRequest $request, $category_id)
     {
-        //
+        $category = Category::find($request->category_id);
+        $category->delete();
+        return back();
     }
 }
