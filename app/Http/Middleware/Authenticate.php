@@ -16,6 +16,7 @@ class Authenticate extends Middleware
     {
         if (! $request->expectsJson()) {
             return route('login');
+            //return abort('401','Es necesario iniciar sesión para acceder a la página solicitada.');
         }
     }
 }

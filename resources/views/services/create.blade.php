@@ -33,7 +33,7 @@
                                         <button type="submit" class="btn btn-primary">
                                             Guardar
                                         </button>
-                                        <a href="{{url('categories/'.$category->id.'/services')}}" type="button" class="btn btn-danger">
+                                        <a href="{{url('categories/'.$category->id.'/services')}}" class="btn btn-danger">
                                             Cancelar
                                         </a>
                                     </div>

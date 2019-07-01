@@ -33,7 +33,7 @@
                                         <button type="submit" class="btn btn-primary">
                                             Guardar
                                         </button>
-                                        <a href="{{ url()->previous() }}" type="button" class="btn btn-danger">
+                                        <a href="{{ url()->previous() }}" class="btn btn-danger">
                                             Cancelar
                                         </a>
                                     </div>

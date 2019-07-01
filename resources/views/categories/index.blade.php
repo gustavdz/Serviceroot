@@ -19,7 +19,7 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">#</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Opciones</th>
                         </tr>
@@ -32,7 +32,7 @@
                                 <td>
                                     <form method="post" action="{{url('categories/'.$category->id.'/delete')}}" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <a href="{{url('categories/'.$category->id.'/services')}}" class="btn btn-primary" data-toggle="tooltip" title="Crear un Servicio">
+                                        <a href="{{url('categories/'.$category->id.'/services')}}" class="btn btn-primary" data-toggle="tooltip" title="Listar sus Servicio">
                                             <i class="fas fa-sitemap"></i>
                                         </a>
                                         <a href="{{url('categories/'.$category->id.'/edit')}}" class="btn btn-success" data-toggle="tooltip" title="Editar Categoría">

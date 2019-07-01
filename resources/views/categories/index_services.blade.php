@@ -23,7 +23,7 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">#</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Opciones</th>
                         </tr>
