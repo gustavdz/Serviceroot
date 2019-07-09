@@ -72,8 +72,8 @@ class RegisterController extends Controller
         $admin=0;
         $supplier=0;
 
-        if(isset($data['admin'])){if($data['admin']=='on'){$admin=1;}}
-        if(isset($data['supplier'])){if($data['supplier']=='on'){$supplier=1;}}
+        if(isset($data['admin'])){if($data['admin']=='on' || $data['admin']=='true'){$admin=1;}}
+        if(isset($data['supplier'])){if($data['supplier']=='on' || $data['supplier']=='true'){$supplier=1;}}
 
         return User::create([
             'name' => $data['name'],

@@ -1,112 +1,109 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Nuevo Usuario') }}</div>
+    <b-container>
+        <b-row align-h="center">
+            <b-col cols="8">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                <b-card header="{{ __('Registro de Usuario') }}">
+                    <b-alert show>
+                        Por favor ingresa tus datos:
+                    </b-alert>
+                    <b-alert show variant="danger">
+                        <ul class="mb-0">
+                            <li>Error 1</li>
+                            <li>Error 2</li>
+                        </ul>
+                    </b-alert>
+                    <b-card-text>
+                        <b-form method="POST" action="{{ route('register') }}">
+                            @csrf
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
+                            <b-form-group label="{{ __('Nombre') }}" label-for="name">
+                                <b-form-input type="text"
+                                              id="name" name="name"
+                                              value="{{ old('name') }}" required autofocus
+                                              placeholder="Juan Pérez">
+                                </b-form-input>
                                 @error('name')
-                                    <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
+                            </b-form-group>
 
-                        <div class="form-group row">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
-
+                            <b-form-group label="{{ __('Username') }}" label-for="username">
+                                <b-form-input type="text"
+                                              id="username" name="username"
+                                              value="{{ old('username') }}" required
+                                              placeholder="nickname">
+                                </b-form-input>
                                 @error('username')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
+                            </b-form-group>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
+                            <b-form-group label="{{ __('Email') }}" label-for="email">
+                                <b-form-input type="text"
+                                              id="email" name="email"
+                                              value="{{ old('email') }}" required
+                                              placeholder="example@tudominio.com">
+                                </b-form-input>
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
+                            </b-form-group>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }}</label>
+                            <b-form-group label="{{ __('Password') }}" label-for="password">
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <b-form-input type="password"
+                                              id="password" name="password" required>
+                                </b-form-input>
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
+                            </b-form-group>
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Contraseña') }}</label>
+                            <b-form-group label="{{ __('Confirmar Contraseña') }}" label-for="password-confirm">
+                                <b-form-input type="password"
+                                              id="password-confirm" name="password_confirmation" required>
+                                </b-form-input>
+                            </b-form-group>
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
+                            <b-form-group>
+                                <b-form-checkbox id="supplier" name="supplier"  {{ old('supplier')?'checked="on"':'' }}>
+                                    {{ __('Proveedor') }}
+                                </b-form-checkbox>
+                            </b-form-group>
 
-                        <div class="form-group row">
-                            <label class="col-md-4 text-md-right" for="supplier">{{ __('Proveedor') }}</label>
-                            <div class="col-md-6">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="supplier" id="supplier" {{ old('supplier') ? 'checked' : '' }}>
-                                </div>
-                            </div>
-                        </div>
+                            <b-form-group>
+                                <b-form-checkbox id="admin" name="admin" {{ old('admin')?'checked="on"':'' }}>
+                                    {{ __('Administrador') }}
+                                </b-form-checkbox>
+                            </b-form-group>
 
-                        <div class="form-group row">
-                            <label class="col-md-4 text-md-right" for="admin">{{ __('Administrador') }}</label>
-                            <div class="col-md-6">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="admin" id="admin" {{ old('admin') ? 'checked' : '' }}>
-                                </div>
-                            </div>
-                        </div>
+                            <b-button type="submit" variant="primary">
+                                {{ __('Registrar') }}
+                            </b-button>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Registrar') }}
-                                </button>
-                                <a href="{{url()->previous()}}" class="btn btn-danger">
-                                    {{ __('Cancelar') }}
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                            <b-button href="{{ route('login') }}" variant="link">
+                                {{ __('¿Ya te has registrado?') }}
+                            </b-button>
+
+
+                        </b-form>
+                    </b-card-text>
+                </b-card>
+            </b-col>
+
+        </b-row>
+    </b-container>
 @endsection
+

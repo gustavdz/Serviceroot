@@ -1,73 +1,75 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Iniciar Sesión') }}</div>
+    <b-container>
+        <b-row align-h="center">
+            <b-col cols="8">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                <b-card header="{{ __('Iniciar Sesión') }}">
+                    @if ($errors->any())
+                        <b-alert show variant="danger">
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </b-alert>
+                    @else
+                        <b-alert show>
+                            Por favor ingresa tus datos:
+                        </b-alert>
+                    @endif
+                    <b-card-text>
+                        <b-form method="POST" action="{{ route('login') }}">
+                            @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Username or Email') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+                            <b-form-group label="{{ __('Username or Email') }}" label-for="email" description="ServiceRoot no comparte los datos con ningún tercer.">
+                                <b-form-input type="text"
+                                    id="email" name="email"
+                                    value="{{ old('email') }}" required autofocus
+                                    placeholder="example@tudominio.com"
+                                ></b-form-input>
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
+                            </b-form-group>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <b-form-group label="{{ __('Password') }}" label-for="password">
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <b-form-input type="password"
+                                  id="password" name="password"
+                                  value="{{ old('password') }}" required>
+                                </b-form-input>
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
+                            </b-form-group>
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <b-form-group>
+                                <b-form-checkbox id="remember" name="remember" {{ old('remember')?'checked="true"':'' }}>
+                                    {{ __('Recordarme') }}
+                                </b-form-checkbox>
+                            </b-form-group>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Recordarme') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                            <b-button type="submit" variant="primary">
+                                {{ __('Ingresar') }}
+                            </b-button>
+                            @if (Route::has('password.request'))
+                            <b-button href="{{ route('password.request') }}" variant="link">
+                                {{ __('¿Olvidó su contraseña?') }}
+                            </b-button>
+                            @endif
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Ingresar') }}
-                                </button>
+                        </b-form>
+                    </b-card-text>
+                </b-card>
+            </b-col>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('¿Olvidó su contraseña?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+        </b-row>
+    </b-container>
 @endsection
