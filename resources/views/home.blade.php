@@ -25,6 +25,11 @@
                                     <a href="{{route('categories')}}">Categorías</a>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="{{route('users')}}">Usuarios</a>
+                                </div>
+                            </div>
                         @else
                             <div class="row">
                                 <div class="col-md-12 text-center">

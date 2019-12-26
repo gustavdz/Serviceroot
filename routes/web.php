@@ -40,4 +40,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('categories/{category_id}/services/{service_id}/edit', 'ServiceController@update')->name('update_category_service');
     Route::post('categories/{category_id}/services/{service_id}/delete', 'ServiceController@destroy')->name('delete_category_service');
 
+    Route::get('users', 'UserController@index')->name('users');
+
 });
